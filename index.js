@@ -6,20 +6,7 @@ app.use(cors())
 /*  sirve para que se pueda hacer un post  */
 app.use(express.json())
 
-let notes = [{
-  name: 'Madeval',
-  id: 1,
-  title: 'Titulo',
-  content: 'Contenido de la nota',
-  important: true
-},
-{
-  name: 'Madeval',
-  id: 2,
-  title: 'Titulo 2',
-  content: 'Contenido de la nota 2',
-  important: false
-}]
+let notes = []
 
 app.get('/', (_request, response) => {
   response.send('<h1>Hola Midu gracias por estos contendidos!!!</h1>')
@@ -80,7 +67,8 @@ app.use((_, response) => {
   }).status(404)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
+
 // es async, por lo que cuando termina de hacen la conexion, tira el console.log
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
