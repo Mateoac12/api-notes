@@ -1,8 +1,8 @@
-const uniqueValidator = require('mongoose-unique-validator')
 const { Schema, model } = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 const userSchema = new Schema({
-  username: { type: String, unique: true },
+  username: { type: String, required: true, unique: true },
   name: String,
   passwordHash: String,
   notes: [{

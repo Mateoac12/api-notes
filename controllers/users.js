@@ -35,13 +35,9 @@ usersRouter.post('/', async (request, response, next) => {
     passwordHash
   })
 
-  try {
-    newUser.save()
-      .then(res => response.json(res))
-      .catch(err => next(err))
-  } catch (error) {
-    response.status(400).json(error)
-  }
+  newUser.save()
+    .then(res => response.json(res))
+    .catch(err => next(err))
 })
 
 module.exports = usersRouter

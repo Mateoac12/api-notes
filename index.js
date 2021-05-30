@@ -22,7 +22,6 @@ app.use('/api/users', usersRouter)
 
 app.use(notFound)
 app.use(handleErrors)
-
 const PORT = process.env.PORT
 // es async, por lo que cuando termina de hacen la conexion, tira el console.log
 const server = app.listen(PORT, () => {
