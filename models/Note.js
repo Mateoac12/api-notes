@@ -1,11 +1,15 @@
-const { Schema, model } = require('mongoose') 
+const { Schema, model } = require('mongoose')
 
 // asi van a tener que ser los modelos que vayamos a crear
 const noteSchema = new Schema({
   title: String,
   content: String,
   important: Boolean,
-  date: Date
+  date: Date,
+  user: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 })
 
 noteSchema.set('toJSON', {
