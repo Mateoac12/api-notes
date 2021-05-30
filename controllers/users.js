@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/User')
 
@@ -22,18 +23,25 @@ usersRouter.delete('/:id', (request, response, next) => {
     .catch(err => next(err))
 })
 
-usersRouter.post('/', (request, response, next) => {
-  const user = request.body
+usersRouter.post('/', async (request, response, next) => {
+  const { username, name, passwordHash: password } = request.body
+
+  const saltRounds = 10
+  const passwordHash = await bcrypt.hash(password, saltRounds)
 
   const newUser = new User({
-    username: user.username,
-    name: user.name,
-    passwordHash: user.passwordHash
+    username,
+    name,
+    passwordHash
   })
 
-  newUser.save()
-    .then(res => response.json(res))
-    .catch(err => next(err))
+  try {
+    newUser.save()
+      .then(res => response.json(res))
+      .catch(err => next(err))
+  } catch (error) {
+    response.status(400).json(error)
+  }
 })
 
 module.exports = usersRouter

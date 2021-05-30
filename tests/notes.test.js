@@ -1,21 +1,18 @@
 const mongoose = require('mongoose')
-const supertest = require('supertest')
-const { app, server } = require('../index')
-const { initialNotes } = require('./helpers')
+const { server } = require('../index')
+const { initialNotes, api } = require('./helpers')
 const Note = require('../models/Note')
 
-const api = supertest(app)
-
-beforeEach(async () => {
-  await Note.deleteMany({})
-
-  for (const note of initialNotes) {
-    const newNote = new Note(note)
-    await newNote.save()
-  }
-})
-
 describe('notes', () => {
+  beforeEach(async () => {
+    await Note.deleteMany({})
+
+    for (const note of initialNotes) {
+      const newNote = new Note(note)
+      await newNote.save()
+    }
+  })
+
   test('returned as json', async () => {
     await api
       .get('/api/notes')
@@ -33,6 +30,7 @@ describe('notes', () => {
     const [firstNote] = await Note.find({})
     const { _id: noteId } = firstNote
     const { body: noteToFind } = await api.get(`/api/notes/${noteId}`)
+
     expect(noteToFind.title).toBe('Test 1')
   })
 
@@ -71,9 +69,9 @@ describe('notes', () => {
     expect(response).toHaveLength(initialNotes.length + 1) // (not +1) because in the last test removed one item
     expect(lastNote.content).toEqual(note.content)
   })
-})
 
-afterAll(() => {
-  mongoose.connection.close()
-  server.close()
+  afterAll(() => {
+    mongoose.connection.close()
+    server.close()
+  })
 })

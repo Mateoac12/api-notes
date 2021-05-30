@@ -1,3 +1,8 @@
+const supertest = require('supertest')
+const { app } = require('../index')
+
+const api = supertest(app)
+
 const initialNotes = [
   {
     title: 'Test 1',
@@ -10,4 +15,4 @@ const initialNotes = [
   }
 ]
 
-module.exports = { initialNotes, beforeEach }
+module.exports = { initialNotes, beforeEach, api }
