@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "cross-env NODE_ENV=production node index.js",
     "test": "cross-env NODE_ENV=test PORT=1234 jest --verbose users.test.js",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "commit": "cz"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "mongoose": "^5.12.11"
   },
   "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.27.0",
     "jest": "^27.0.1",
     "nodemon": "^2.0.7",
@@ -33,6 +35,11 @@
     "extends": "./node_modules/standard/eslintrc.json",
     "env": {
       "jest": true
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
