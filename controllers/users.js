@@ -3,14 +3,22 @@ const usersRouter = require('express').Router()
 const User = require('../models/User')
 
 usersRouter.get('/', (request, response, next) => {
-  User.find({})
+  User.find({}).populate('notes', {
+    title: 1,
+    content: 1,
+    important: 1
+  })
     .then(res => response.json(res))
     .catch(err => next(err))
 })
 
 usersRouter.get('/:id', (request, response, next) => {
   const { id } = request.params
-  User.findById(id)
+  User.findById(id).populate('notes', {
+    title: 1,
+    content: 1,
+    important: 1
+  })
     .then(res => response.json(res))
     .catch(err => next(err))
 })
