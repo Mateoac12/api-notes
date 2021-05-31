@@ -60,7 +60,7 @@ describe('users', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
-    console.log({ response })
+    console.log(response.body)
   })
 
   afterAll(() => {

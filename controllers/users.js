@@ -37,7 +37,9 @@ usersRouter.post('/', async (request, response, next) => {
 
   newUser.save()
     .then(res => response.json(res))
-    .catch(err => next(err))
+    .catch(err => {
+      next(err)
+    })
 })
 
 module.exports = usersRouter
