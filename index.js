@@ -11,6 +11,7 @@ const handleErrors = require('./middlewares/handleErrors')
 
 const notesRouter = require('./controllers/notes')
 const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 
 /*  sirve para permitir a otros dominios consumir la api  */
 app.use(cors())
@@ -19,9 +20,11 @@ app.use(express.json())
 
 app.use('/api/notes', notesRouter)
 app.use('/api/users', usersRouter)
+app.use('/login', loginRouter)
 
 app.use(notFound)
 app.use(handleErrors)
+
 const PORT = process.env.PORT
 // es async, por lo que cuando termina de hacen la conexion, tira el console.log
 const server = app.listen(PORT, () => {
