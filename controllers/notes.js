@@ -68,7 +68,15 @@ notesRouter.post('/', userExtract, async (request, response, next) => {
 
 notesRouter.put('/:id', userExtract, (request, response, next) => {
   const note = request.body
-  Note.findByIdAndUpdate(note.id, { new: true })
+  const { id, title, content, important } = note
+
+  const updatedNote = {
+    title,
+    content,
+    important
+  }
+
+  Note.findByIdAndUpdate(id, updatedNote, { new: true })
     .then(res => response.json(res))
     .catch(err => next(err))
 })
